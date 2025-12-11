@@ -6,7 +6,7 @@ const quotesArray = [
   {
     text: "Your mind is your greatest power—train it well.",
     category: "Mindset"
-  }, 
+  },
   {
     text: "Become 1% better every single day.",
     category: "Self-improvement"
@@ -14,34 +14,41 @@ const quotesArray = [
 ]
 
 const showQuoteButton = document.getElementById('newQuote');
- const displayQuote = document.getElementById('quoteDisplay');
+const displayQuote = document.getElementById('quoteDisplay');
 
 // Function to show random quote
-
 function showRandomQuote() {
- const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
+  const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
 
   displayQuote.innerHTML = randomQuote.text;
 }
 
+//Add new quote to the quoteArray and display it 
 function addQuote() {
   const text = document.getElementById('newQuoteText').value;
   const category = document.getElementById('newQuoteCategory').value;
-  const quoteTextElement = document.createElement('p');
-  quoteTextElement.textContent = text;
 
-  displayQuote.appendChild(quoteTextElement)
+  if (text && category) {
+    const quoteTextElement = document.createElement('p');
+    quoteTextElement.textContent = text;
 
-  quotesArray.push(
-    {
-      text,
-      category
-    }
-  );
+    displayQuote.appendChild(quoteTextElement)
+
+    quotesArray.push(
+      {
+        text,
+        category
+      }
+    );
+  } else {
+    alert('Input field can not be empty')
+  }
+
+
+  //clean input field afterad button is clicked
+  document.getElementById('newQuoteText').value = '';
+  document.getElementById('newQuoteCategory').value = '';
 }
 
-function createAddQuoteForm() {
-  
-}
-
+// Add click event to the show new quote button
 showQuoteButton.addEventListener('click', showRandomQuote)
