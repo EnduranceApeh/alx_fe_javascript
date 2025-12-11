@@ -17,7 +17,7 @@ const showQuoteButton = document.getElementById('newQuote')
 
 // Function to show random quote
 
-function displayRandomQuote() {
+function showRandomQuote() {
   const displayQuote = document.getElementById('quoteDisplay');
  const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
 
@@ -29,4 +29,4 @@ function createAddQuoteForm() {
   
 }
 
-showQuoteButton.addEventListener('click', displayRandomQuote)
+showQuoteButton.addEventListener('click', showRandomQuote)
