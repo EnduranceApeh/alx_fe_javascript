@@ -13,12 +13,12 @@ const quotesArray = [
   }
 ]
 
-const showQuoteButton = document.getElementById('newQuote')
+const showQuoteButton = document.getElementById('newQuote');
+ const displayQuote = document.getElementById('quoteDisplay');
 
 // Function to show random quote
 
 function showRandomQuote() {
-  const displayQuote = document.getElementById('quoteDisplay');
  const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
 
   displayQuote.innerHTML = randomQuote.text;
@@ -27,6 +27,10 @@ function showRandomQuote() {
 function addQuote() {
   const text = document.getElementById('newQuoteText').value;
   const category = document.getElementById('newQuoteCategory').value;
+  const quoteTextElement = document.createElement('p');
+  quoteTextElement.textContent = text;
+
+  displayQuote.appendChild(quoteTextElement)
 
   quotesArray.push(
     {
