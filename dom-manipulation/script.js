@@ -24,6 +24,17 @@ function showRandomQuote() {
   displayQuote.innerHTML = randomQuote.text;
 }
 
+function addQuote() {
+  const text = document.getElementById('newQuoteText').value;
+  const category = document.getElementById('newQuoteCategory').value;
+
+  quotesArray.push(
+    {
+      text,
+      category
+    }
+  );
+}
 
 function createAddQuoteForm() {
   
