@@ -6,7 +6,7 @@ const quotesArray = [
   {
     text: "Your mind is your greatest power—train it well.",
     category: "Mindset"
-  },
+  }, 
   {
     text: "Become 1% better every single day.",
     category: "Self-improvement"
@@ -18,7 +18,7 @@ const displayQuote = document.getElementById('quoteDisplay');
 
 // Function to show random quote
 function showRandomQuote() {
-  const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
+ const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
 
   displayQuote.innerHTML = randomQuote.text;
 }
@@ -27,25 +27,19 @@ function showRandomQuote() {
 function addQuote() {
   const text = document.getElementById('newQuoteText').value;
   const category = document.getElementById('newQuoteCategory').value;
+  const quoteTextElement = document.createElement('p');
+  quoteTextElement.textContent = text;
 
-  if (text && category) {
-    const quoteTextElement = document.createElement('p');
-    quoteTextElement.textContent = text;
+  displayQuote.appendChild(quoteTextElement)
 
-    displayQuote.appendChild(quoteTextElement)
+  quotesArray.push(
+    {
+      text,
+      category
+    }
+  );
 
-    quotesArray.push(
-      {
-        text,
-        category
-      }
-    );
-  } else {
-    alert('Input field can not be empty')
-  }
-
-
-  //clean input field afterad button is clicked
+  //clean input field after add button is clicked
   document.getElementById('newQuoteText').value = '';
   document.getElementById('newQuoteCategory').value = '';
 }
