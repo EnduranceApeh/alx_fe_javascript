@@ -1,14 +1,22 @@
 const quotesArray = JSON.parse(localStorage.getItem('quotes')) || [];
+let selectedCategory = JSON.parse(localStorage.getItem('selectedCategory'));
 
 const showQuoteButton = document.getElementById('newQuote');
 const displayQuote = document.getElementById('quoteDisplay');
 
+ const categoryDropDown = document.getElementById('categoryFilter');
 
+//filterQuotes();
 // Function to show random quote
 function showRandomQuote() {
   const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
 
   displayQuote.innerHTML = randomQuote.text;
+}
+
+// Save quote to localStorage
+function saveQuotes() {
+  localStorage.setItem('quotes', JSON.stringify(quotesArray))
 }
 
 //Add new quote to the quoteArray and display it 
@@ -29,6 +37,8 @@ function addQuote() {
 
   localStorage.setItem('quotes', JSON.stringify(quotesArray))
 
+   // update categories dropdown
+   populateCategories();
 
   //clean input field after add button is clicked
   document.getElementById('newQuoteText').value = '';
@@ -98,3 +108,50 @@ exportButton.addEventListener('click', exportQuotes)
     };
     fileReader.readAsText(event.target.files[0]);
   }
+
+  // Populate category
+  function populateCategories() {
+     const quoteCategories= [];
+
+     // get unique category from quoteArray
+     quotesArray.forEach((quote) => {
+        if(!quoteCategories.includes(quote.category)) {
+          quoteCategories.push(quote.category)
+        }
+     })
+
+     console.log(quoteCategories)
+     // populate category
+     quoteCategories.forEach((category) => {
+        const option = document.createElement('option');
+        option.textContent = category;
+        option.value = category;
+        
+        categoryDropDown.appendChild(option)
+     })
+  }
+
+  function filterQuotes() {
+   
+
+
+    // save selected category to local storage
+    localStorage.setItem('selectedCategory', JSON.stringify(selectedCategory))
+
+    displayQuote.innerHTML = '';
+    //console.log(category)
+
+    const filteredQuote = quotesArray.filter(quote => quote.category === selectedCategory)
+
+    console.log(filteredQuote)
+    filteredQuote.forEach((quote) => {
+      const p = document.createElement('p');
+      p.textContent = quote.text;
+
+      displayQuote.appendChild(p);
+    })
+    
+    console.log(filteredQuote)
+  }
+  populateCategories()
+ 
