@@ -1,5 +1,6 @@
 const quotesArray = JSON.parse(localStorage.getItem('quotes')) || [];
 let selectedCategory = JSON.parse(localStorage.getItem('selectedCategory'));
+console.log(selectedCategory)
 
 const showQuoteButton = document.getElementById('newQuote');
 const displayQuote = document.getElementById('quoteDisplay');
@@ -111,14 +112,16 @@ exportButton.addEventListener('click', exportQuotes)
 
   // Populate category
   function populateCategories() {
-     const quoteCategories= [];
+     /*const quoteCategories= [];
 
      // get unique category from quoteArray
      quotesArray.forEach((quote) => {
         if(!quoteCategories.includes(quote.category)) {
           quoteCategories.push(quote.category)
         }
-     })
+     })*/
+    const quoteCategories = [...new Set(quotesArray.map(quote => quote.category))];
+    console.log(quoteCategories);
 
      console.log(quoteCategories)
      // populate category
@@ -132,9 +135,8 @@ exportButton.addEventListener('click', exportQuotes)
   }
 
   function filterQuotes() {
+   const selectedCategory = categoryDropDown.value || JSON.parse(localStorage.getItem('selectedCategory'));
    
-
-
     // save selected category to local storage
     localStorage.setItem('selectedCategory', JSON.stringify(selectedCategory))
 
@@ -151,7 +153,7 @@ exportButton.addEventListener('click', exportQuotes)
       displayQuote.appendChild(p);
     })
     
-    console.log(filteredQuote)
+    //console.log(filteredQuote)
   }
   populateCategories()
  
