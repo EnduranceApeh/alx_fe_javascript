@@ -150,7 +150,7 @@ exportButton.addEventListener('click', exportQuotes)
   //function to eftxh quote from a mock api
   async function fetchQuotesFromServer() {
     try{
-        const response = await fetch('https://jsonplaceholder.typicode.com/');
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
         const data = await response.json()
 
         return data
