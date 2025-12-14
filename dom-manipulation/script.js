@@ -1,5 +1,9 @@
-fetchQuotesFromServer();
+
 const quotesArray = JSON.parse(localStorage.getItem('quotes')) || [];
+fetchQuotesFromServer();
+syncQuotes();
+
+
 let selectedCategory = JSON.parse(localStorage.getItem('selectedCategory'));
 console.log(selectedCategory)
 
@@ -179,4 +183,24 @@ async function postQuoteToServer() {
   }
 
 }
+
+async function syncQuotes() {
+  try {
+    const serverQuotes = await fetchServerQuotes();
+    const localQuotes = loadLocalQuotes();
+
+    // Conflict resolution strategy:
+    // Server data ALWAYS replaces local data
+    if (JSON.stringify(serverQuotes) !== JSON.stringify(localQuotes)) {
+      saveLocalQuotes(serverQuotes);
+      renderQuotes(serverQuotes); // update UI
+      console.log("Local data synced with server");
+    } else {
+      console.log("No changes detected");
+    }
+  } catch (error) {
+    console.error("Sync failed:", error.message);
+  }
+}
+
 populateCategories()
