@@ -1,3 +1,4 @@
+fetchQuotesFromServer();
 const quotesArray = JSON.parse(localStorage.getItem('quotes')) || [];
 let selectedCategory = JSON.parse(localStorage.getItem('selectedCategory'));
 console.log(selectedCategory)
@@ -112,14 +113,6 @@ exportButton.addEventListener('click', exportQuotes)
 
   // Populate category
   function populateCategories() {
-     /*const quoteCategories= [];
-
-     // get unique category from quoteArray
-     quotesArray.forEach((quote) => {
-        if(!quoteCategories.includes(quote.category)) {
-          quoteCategories.push(quote.category)
-        }
-     })*/
     const quoteCategories = [...new Set(quotesArray.map(quote => quote.category))];
     console.log(quoteCategories);
 
@@ -152,8 +145,18 @@ exportButton.addEventListener('click', exportQuotes)
 
       displayQuote.appendChild(p);
     })
-    
-    //console.log(filteredQuote)
+  }
+
+  //function to eftxh quote from a mock api
+  async function fetchQuotesFromServer() {
+    try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/');
+        const data = await response.json()
+
+        return data
+    } catch(err) {
+        console.log(err)
+    }
   }
   populateCategories()
  
