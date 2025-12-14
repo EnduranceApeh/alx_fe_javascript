@@ -203,4 +203,17 @@ async function syncQuotes() {
   }
 }
 
+function renderQuotes(quotes) {
+  const container = document.getElementById("quotesContainer");
+  container.innerHTML = "";
+
+  quotes.forEach(quote => {
+    const p = document.createElement("p");
+    p.textContent = `"${quote.text}" — ${quote.category}`;
+    container.appendChild(p);
+  });
+}
+
+setInterval(syncQuotes, SYNC_INTERVAL);
 populateCategories()
+
