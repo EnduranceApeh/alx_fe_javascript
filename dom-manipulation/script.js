@@ -194,7 +194,7 @@ async function syncQuotes() {
     if (JSON.stringify(serverQuotes) !== JSON.stringify(localQuotes)) {
       saveLocalQuotes(serverQuotes);
       renderQuotes(serverQuotes); // update UI
-      console.log("Local data synced with server");
+      console.log("Quotes synced with server!");
     } else {
       console.log("No changes detected");
     }
